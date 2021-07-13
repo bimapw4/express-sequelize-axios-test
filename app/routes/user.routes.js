@@ -7,11 +7,20 @@ module.exports = app => {
     router.post("/", users.create);
   
     // get all value from api
-    router.get("/posts", users.GetPost);
+    router.get("/", users.GetPost);
 
     // get value from api by id
-    router.get("/posts/:id", users.GetPostById);
+    router.get("/id/:id", users.GetPostById);
 
-  
-    app.use('/api/users', router);
+    // get comment value
+    router.get("/comments/:id", users.GetComments);
+
+    //save post by id
+    router.post("/save/:id", users.SavePosts);
+
+    router.put("/save/:id", users.UpdatePosts);
+
+    router.delete("/save/:id", users.DeletePosts);
+
+    app.use('/api/post', router);
   };
