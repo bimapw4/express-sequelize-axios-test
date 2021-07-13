@@ -1,6 +1,7 @@
 const axios = require("axios");
 const db = require("../models");
 const User = db.users;
+const Comments = db.comments;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -66,7 +67,15 @@ exports.GetComments = async (req, res) => {
 			url: "https://jsonplaceholder.typicode.com/posts/"+ req.params.id +"/comments",
 			method: "get",
 		});
-         res.send(response.data);
+        Comments.bulkCreate(response.data).then(data => {
+            res.send(data);
+          })
+          .catch(err => {
+              res.status(500).send({
+                message:
+                  err.message || "Some error occurred while creating the Tutorial."
+              });
+            });
     } catch (err) {
 		res.status(500).json({ message: err });
 	}
