@@ -12,6 +12,9 @@ module.exports = app => {
     // get value from api by id
     router.get("/id/:id", users.GetPostById);
 
+    // 
+    router.get("/:coloum/:value", users.GetPostByColoum);
+
     // get comment value
     router.get("/comments/:id", users.GetComments);
 
